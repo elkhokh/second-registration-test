@@ -12,5 +12,12 @@
         "salary": "23543",
         "phone": "2686897542",
         "type": "full_time"
+    },
+    {
+        "name": "mostafa khalid",
+        "email": "UG_31093658@f-eng.tanta.edu.eg",
+        "salary": "300000",
+        "phone": "01004643861",
+        "type": "full_time"
     }
 ]
