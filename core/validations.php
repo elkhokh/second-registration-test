@@ -1,5 +1,16 @@
 <?php
-
+function santize_data($name,$email,$salary,$phone){
+    $email=filter_var($email, FILTER_SANITIZE_EMAIL);
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $salary = filter_var($salary,FILTER_SANITIZE_NUMBER_INT);
+    $phone = filter_var($phone,FILTER_SANITIZE_NUMBER_INT);
+    return [
+        'name' => $name,
+        'email' => $email,
+        'salary' => $salary,
+        'phone' => $phone
+    ];
+}
 function validateRequired($value,$fieldName){
     return empty($value) ? "$fieldName is required" : null;
 }
@@ -13,19 +24,11 @@ function validateSalary($salary){
 }
 
 function validateEmployee($name,$email,$salary,$phone,$type){
-    $fields = [
-        'name' => $name,
-        'email' => $email,
-        'salary' => $salary,
-        'phone' => $phone,
-        'type' => $type,
-    ];
-    $email=filter_var($email, FILTER_SANITIZE_EMAIL);
-    $name = filter_var($name, FILTER_SANITIZE_STRING);
-    $salary = filter_var($salary,FILTER_SANITIZE_NUMBER_INT);
-    $phone = filter_var($phone,FILTER_SANITIZE_NUMBER_INT);
     
-    foreach($fields as $fieldName => $value){
+     
+    $sanitized = santize_data($name, $email, $salary, $phone);
+    $sanitized['type']=$type;
+    foreach($sanitized as $fieldName => $value){
         if($error = validateRequired($value,$fieldName)){
             return $error;
         }
